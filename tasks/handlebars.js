@@ -63,7 +63,10 @@ module.exports = function(grunt) {
       amd: false,
       commonjs: false,
       knownHelpers: [],
-      knownHelpersOnly: false
+      knownHelpersOnly: false,
+      wrapOutput: function (output) {
+        return output;
+      }
     });
 
     // assign regex for partials directory detection
@@ -224,7 +227,7 @@ module.exports = function(grunt) {
         }
 
         filesCount++;
-        grunt.file.write(f.dest, output.join(grunt.util.normalizelf(options.separator)));
+        grunt.file.write(f.dest, options.wrapOutput(output.join(grunt.util.normalizelf(options.separator))));
         grunt.verbose.writeln('File ' + chalk.cyan(f.dest) + ' created.');
       }
     });
